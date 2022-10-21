@@ -3,6 +3,8 @@
 
 # Python
 from datetime import date
+from datetime import datetime
+from tkinter import N
 from typing import Optional
 from uuid import UUID
 
@@ -25,7 +27,8 @@ class UserBase(BaseModel):
 class UserLogin(UserBase):
     passwrod: str = Field(
         ...,
-        min_length=8
+        min_length=8,
+        max_length=24
         )
 
 class User(UserBase):
@@ -39,10 +42,19 @@ class User(UserBase):
         min_length=4,
         max_length=50
     )
-    birth_date: Optional[date] = Field(default = None) 
+    birth_date: Optional[date] = Field(default=None) 
 
 class Tweet(BaseModel):
-    pass
+    tweet_id: UUID = Field(...)
+    content: str = Field(
+        ...,
+        min_length=1,
+        max_length=256
+        )
+    create_at: datetime = Field(default=datetime.today())
+    update_at: Optional[datetime] = Field(default=None)
+    by: User = Field(...)
+
 
 
 @app.get(path="/")
