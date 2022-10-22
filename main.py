@@ -274,6 +274,4 @@ def update_a_tweet():
     pass
 
 
-### FINALIZADO EL PROYECTO
-
 
